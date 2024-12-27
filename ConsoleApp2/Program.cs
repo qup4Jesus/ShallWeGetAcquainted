@@ -19,12 +19,16 @@ namespace ConsoleApp2
             Console.WriteLine("Какой у вас размер ноги? ");
             float footSize = Convert.ToSingle(Console.ReadLine());
 
+            Console.Write("Введите дату вашего рождения: ");
+            string birthDay = Console.ReadLine();
+
             Console.Clear();
 
             Console.WriteLine($"Меня зовут - {myName}\n" +
                               $"Мой возраст - {years}\n" +
                               $"Есть ли у меня питомец - {pet}\n" +
-                              $"Мой размер ноги - {footSize}");
+                              $"Мой размер ноги - {footSize}\n" +
+                              $"День моего рождения: {birthDay}");
         }
     }
 }
