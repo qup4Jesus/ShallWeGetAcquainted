@@ -1,5 +1,5 @@
 ﻿using System;
-using System.ComponentModel.Design;
+using System.ComponentModel;
 
 namespace ConsoleApp2
 {
@@ -7,25 +7,44 @@ namespace ConsoleApp2
     {
         static void Main(string[] args)
         {
-            string info;
-            int select;
-
-            info = "Выберите интересуешее задание:\n\n" +
-                   "1 - Знакомство\n" +
-                   "2 - Логические операции";
-
-            select = CheckingTheSelection(info, 2);
-
-            switch (select)
+            while (true)
             {
-                case 1:
-                    Acquaintance();
-                    Environment.Exit(0);
-                    break;
-                case 2:
-                    ComparisonOperation();
-                    Environment.Exit(0);
-                    break;
+                string info;
+                int select;
+
+                info = "Выберите интересуешее задание:\n\n" +
+                       "1 - Знакомство;\n" +
+                       "2 - Твой любимый цвет;\n" +
+                       "3 - Реверс твоего имени;\n" +
+                       "4 - Сортировка массивов;\n" +
+                       "5 - ВЫХОД";
+
+                select = CheckingTheSelection(info, 4);
+
+                switch (select)
+                {
+                    case 1:
+                        Acquaintance();
+                        break;
+                    case 2:
+                        ComparisonOperation();
+                        break;
+                    case 3:
+                        ReverseName();
+                        break;
+                    case 4:
+                        SortArray();
+                        break;
+                    case 5:
+                        Environment.Exit(0);
+                        break;
+                }
+
+                Console.WriteLine();
+                Console.WriteLine("Нажмите любую клавишу...");
+
+                Console.ReadKey();
+                Console.Clear();
             }
         }
 
@@ -67,6 +86,8 @@ namespace ConsoleApp2
         {
             Console.WriteLine("Как вас зовут? ");
             string myName = Console.ReadLine();
+            DismemberName(myName);
+            Console.WriteLine();
 
             Console.WriteLine("Сколько вам лет? ");
             int years = Convert.ToInt32(Console.ReadLine());
@@ -92,7 +113,10 @@ namespace ConsoleApp2
         {
             while (true)
             {
-                Console.WriteLine("Напишите свой любимый цвет.");
+                Console.WriteLine("Напишите свой любимый цвет.\n" +
+                                  "Для выхода в основное меню напишите стоп СТОП.\n" +
+                                  "Для пропуска напишите СЛЕДУЮЩИЙ.");
+
                 string color = Console.ReadLine().ToLower();
 
                 if (color == "stop" || color == "стоп")
@@ -135,26 +159,25 @@ namespace ConsoleApp2
                         Console.BackgroundColor = ConsoleColor.White;
                         Console.ForegroundColor = ConsoleColor.Black;
 
-                        Console.WriteLine("Ты бетман!");
-                        Console.WriteLine("00000000000000000000000000000000000000000000000000\r\n" +
-                                          "0000000000000000000000_______000000000000000000000\r\n" +
-                                          "0000000000000_________________________000000000000\r\n" +
-                                          "0000000000____00______00__00_______00____000000000\r\n" +
-                                          "0000000____0000_______000000________0000____000000\r\n" +
-                                          "00000___000000________0000000_______0000000___0000\r\n" +
-                                          "0000__000000000______00000000_______000000000__000\r\n" +
-                                          "000_0000000000000___00000000000___000000000000___0\r\n" +
-                                          "00_00000000000000000000000000000000000000000000__0\r\n" +
-                                          "0__000000000000000000000000000000000000000000000_0\r\n" +
-                                          "0__000000000000000000000000000000000000000000000_0\r\n" +
-                                          "00_000000000000000000000000000000000000000000000_0\r\n" +
-                                          "00__0000000000000000000000000000000000000000000__0\r\n" +
-                                          "000__000000_____00____0000000____00_____000000__00\r\n" +
-                                          "0000___0000____________0000_____________0000___000\r\n" +
-                                          "000000___000____________00_____________000___00000\r\n" +
-                                          "00000000___________________________________0000000\r\n" +
-                                          "000000000000___________________________00000000000\r\n" +
-                                          "000000000000000000_______________00000000000000000\r\n" +
+                        Console.WriteLine("00000000000000000000000000000000000000000000000000\n" +
+                                          "0000000000000000000000_______000000000000000000000\n" +
+                                          "0000000000000_________________________000000000000\n" +
+                                          "0000000000____00______00__00_______00____000000000\n" +
+                                          "0000000____0000_______000000________0000____000000\n" +
+                                          "00000___000000________0000000_______0000000___0000\n" +
+                                          "0000__000000000______00000000_______000000000__000\n" +
+                                          "000_0000000000000___00000000000___000000000000___0\n" +
+                                          "00_00000000000000000000000000000000000000000000__0\n" +
+                                          "0__00000000000000000Ты бетман!000000000000000000_0\n" +
+                                          "0__000000000000000000000000000000000000000000000_0\n" +
+                                          "00_000000000000000000000000000000000000000000000_0\n" +
+                                          "00__0000000000000000000000000000000000000000000__0\n" +
+                                          "000__000000_____00____0000000____00_____000000__00\n" +
+                                          "0000___0000____________0000_____________0000___000\n" +
+                                          "000000___000____________00_____________000___00000\n" +
+                                          "00000000___________________________________0000000\n" +
+                                          "000000000000___________________________00000000000\n" +
+                                          "000000000000000000_______________00000000000000000\n" +
                                           "00000000000000000000000000000000000000000000000000");
                         break;
                 }
@@ -168,6 +191,153 @@ namespace ConsoleApp2
                 Console.Clear();
             }
 
+        }
+        private static void DismemberName(string name)
+        {
+            for (int i = 0; i < name.Length; i++)
+            {
+                Console.Write(name[i] + " ");
+
+                if (i == name.Length - 1)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($"Последняя буква вашего имени: {name[i]}");
+                }
+            }
+        }
+        private static void ReverseName()
+        {
+            Console.WriteLine("Введите свое имя: ");
+            string name = Console.ReadLine();
+
+            for (int i = name.Length - 1; i >= 0; i--)
+                Console.Write(name[i] + " ");
+        }
+        private static void SortArray()
+        {
+            int numPositive = 0;
+            int summ = 0;
+            int temp;
+            int minValue = int.MaxValue;
+
+            int[] array = new int[] { 5, 6, 9, 1, 2, 3, 4 };
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] < minValue)
+                    minValue = array[i];
+            }
+            Console.WriteLine("Минимальное значение: " + minValue);
+
+            Console.WriteLine("Сортировка массива: ");
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                for (int j = i + 1; j < array.Length; j++)
+                {
+                    if (array[i] > array[j])
+                    {
+                        temp = array[i];
+                        array[i] = array[j];
+                        array[j] = temp;
+                    }
+                }
+                Console.WriteLine();
+                Console.WriteLine(new string('-', 13));
+
+                foreach (int item in array)
+                    Console.Write(item + " ");
+            }
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                summ += array[i];
+            }
+            Console.WriteLine("\n\nСумма всех элементов массива: " + summ);
+
+            int[][] arr = new int[3][];
+
+            arr[0] = new int[2] { 1, 2 };
+            arr[1] = new int[3] { 1, 2, 3 };
+            arr[2] = new int[5] { 1, 2, 3, 4, 5 };
+
+            foreach (int[] line in arr)
+            {
+                Console.WriteLine();
+
+                foreach (int item in line)
+                {
+                    Console.Write(item + " ");
+                }
+            }
+
+            int[,] arr1 =
+            {
+                { -5, 6, 9, 1, 2, -3 },
+                { -8, 8, 1, 1, 2, -3 }
+            };
+
+            Console.WriteLine("\n\nМассив чисел: ");
+
+            for (int i = 0; i < arr1.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr1.GetLength(1); j++)
+                {
+                    Console.Write(arr1[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
+
+            for (int i = 0; i < arr1.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr1.GetLength(1); j++)
+                {
+                    if (arr1[i, j] > 0)
+                        numPositive++;
+                }
+            }
+            Console.WriteLine("\n\nКоличество положительных чисел в массиве: " + numPositive);
+
+            int[,] arr2 =
+            {
+                { -5, 6, 9, 1, 2, -3 },
+                { -8, 8, 1, 1, 2, -3 }
+            };
+
+            Console.WriteLine("\n\nМассив чисел: ");
+
+            for (int i = 0; i < arr2.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr2.GetLength(1); j++)
+                {
+                    Console.Write(arr1[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
+
+            Console.WriteLine("\n\nОтсортированный массив чисел: ");
+
+            for (int i = 0; i < arr2.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr2.GetLength(1); j++)
+                {
+                    for (int k = j + 1; k < arr2.GetLength(1); k++)
+                    {
+                        if (arr2[i, j] > arr2[i, k])
+                        {
+                            temp = arr2[i, k];
+                            arr2[i, k] = arr2[i, j];
+                            arr2[i, j] = temp;
+                        }
+                    }
+                }
+
+                for (int j = 0; j < arr2.GetLength(1); j++)
+                {
+                    Console.Write(arr2[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
         }
     }
 }
