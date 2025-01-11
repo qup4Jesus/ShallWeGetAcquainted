@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Web;
 
 namespace ConsoleApp2
 {
@@ -17,9 +21,10 @@ namespace ConsoleApp2
                        "2 - Твой любимый цвет;\n" +
                        "3 - Реверс твоего имени;\n" +
                        "4 - Сортировка массивов;\n" +
-                       "5 - ВЫХОД";
+                       "5 - Кортежи;\n" +
+                       "6 - ВЫХОД";
 
-                select = CheckingTheSelection(info, 4);
+                select = CheckingTheSelection(info, 5);
 
                 switch (select)
                 {
@@ -36,6 +41,9 @@ namespace ConsoleApp2
                         SortArray();
                         break;
                     case 5:
+                        I_amTuples();
+                        break;
+                    case 6:
                         Environment.Exit(0);
                         break;
                 }
@@ -81,6 +89,13 @@ namespace ConsoleApp2
                 Console.Clear();
             }
             return choice;
+        }
+        private static string ToUpperFirstLetter(string info)
+        {
+            char[] letters = info.ToCharArray();
+            letters[0] = char.ToUpper(letters[0]);
+
+            return new string(letters);
         }
         private static void Acquaintance()
         {
@@ -337,6 +352,199 @@ namespace ConsoleApp2
                     Console.Write(arr2[i, j] + " ");
                 }
                 Console.WriteLine();
+            }
+        }
+        private static void I_amTuples()
+        {
+            (string name, string lastName, string login, int loginCount, bool pet, int age, string[] favoritColor) User;
+
+            User.pet = false;
+            User.favoritColor = null;
+
+            string[] favoritColor = new string[3];
+            bool on = true;
+            int j = 0;
+
+            while (j < 3)
+            {
+                j++;
+
+                Console.Write("Введите имя: ");
+                User.name = Console.ReadLine().ToLower();
+                User.name = ToUpperFirstLetter(User.name);
+
+                Console.Write("Введите фамилию: ");
+                User.lastName = Console.ReadLine().ToLower();
+                User.lastName = ToUpperFirstLetter(User.lastName);
+
+                Console.Write("Введите логин: ");
+                User.login = Console.ReadLine();
+                User.loginCount = User.login.Length;
+
+                while (on)
+                {
+                    Console.Write("Есть ли у вас питомец: ");
+                    string pet = Console.ReadLine().ToLower();
+
+                    if (pet == "да" || pet == "yes")
+                    {
+                        User.pet = true;
+                        on = false;
+                    }
+                    else if (pet == "нет" || pet == "no")
+                    {
+                        on = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Некоректный ввод. Повторите ввод еще раз...");
+                    }
+                }
+
+                Console.Write("Введите ваш возраст: ");
+                User.age = checked(int.Parse(Console.ReadLine()));
+
+                Console.WriteLine("Введите три ваших любимых цвета из представленных: ");
+                Console.WriteLine("1 - Черный\n" +
+                                  "2 - Белый\n" +
+                                  "3 - Синий\n" +
+                                  "4 - Красный\n" +
+                                  "5 - Зеленый\n" +
+                                  "6 - Серый\n" +
+                                  "7 - Пурпурный\n" +
+                                  "8 - Желтый\n" +
+                                  "9 - Голубой\n");
+
+                on = true;
+
+                while (on)
+                {
+                    int i = 0;
+
+                    while (i < 3)
+                    {
+                        Console.Write("Введите цвет: ");
+                        string color = Console.ReadLine().ToLower();
+
+                        switch (color)
+                        {
+                            case "черный":
+                                favoritColor[i] = "Черный";
+                                i++;
+                                break;
+                            case "белый":
+                                favoritColor[i] = "Белый";
+                                i++;
+                                break;
+                            case "синий":
+                                favoritColor[i] = "Синий";
+                                i++;
+                                break;
+                            case "красный":
+                                favoritColor[i] = "Красный";
+                                i++;
+                                break;
+                            case "зеленый":
+                                favoritColor[i] = "Зеленый";
+                                i++;
+                                break;
+                            case "серый":
+                                favoritColor[i] = "Серый";
+                                i++;
+                                break;
+                            case "пурпурный":
+                                favoritColor[i] = "Пурпурный";
+                                i++;
+                                break;
+                            case "желтый":
+                                favoritColor[i] = "Желтый";
+                                i++;
+                                break;
+                            case "голубой":
+                                favoritColor[i] = "Голубой";
+                                i++;
+                                break;
+                            case "black":
+                                goto case "черный";
+                            case "white":
+                                goto case "белый";
+                            case "blue":
+                                goto case "синий";
+                            case "red":
+                                goto case "красный";
+                            case "green":
+                                goto case "зеленый";
+                            case "grey":
+                                goto case "серый";
+                            case "magenta":
+                                goto case "пурпурный";
+                            case "yellow":
+                                goto case "желтый";
+                            case "cyan":
+                                goto case "голубой";
+                            case "1":
+                                goto case "черный";
+                            case "2":
+                                goto case "белый";
+                            case "3":
+                                goto case "красный";
+                            case "4":
+                                goto case "синий";
+                            case "5":
+                                goto case "зеленый"; ;
+                            case "6":
+                                goto case "серый";
+                            case "7":
+                                goto case "пурпурный";
+                            case "8":
+                                goto case "желтый";
+                            case "9":
+                                goto case "голубой";
+                            default:
+                                Console.WriteLine("К сожалению я такого цвета не знаю...");
+                                break;
+                        }
+
+                        User.favoritColor = favoritColor;
+                        on = false;
+                    }
+                }
+
+                Console.WriteLine("\n\nНажмите любую клавшу для продолжения...");
+                Console.ReadKey();
+                Console.Clear();
+
+                Console.SetCursorPosition(50, 0);
+                Console.WriteLine($"Информация пользователя {j}");
+                Console.WriteLine(new string('_', 120));
+
+                Console.WriteLine($"Имя: {User.name}\n" +
+                                  $"Фамилия: {User.lastName}\n" +
+                                  $"Логин: {User.login}\n" +
+                                  $"Кол-во символов в логине: {User.loginCount}\n" +
+                                  $"Питомец: {User.pet}\n" +
+                                  $"Возраст: {User.age}");
+                Console.Write("Любимые цвета: ");
+
+                for (int i = 0; i < User.favoritColor.Length; i++)
+                {
+                    char point;
+
+                    if (i == (User.favoritColor.Length - 1))
+                    {
+                        point = '.';
+                    }
+                    else
+                    {
+                        point = ',';
+                    }
+                    Console.Write(User.favoritColor[i] + point + " ");
+                }
+
+                Console.SetCursorPosition(50, 9);
+                Console.Write("Нажмите любую клавишу для продолжения...");
+                Console.ReadKey();
+                Console.Clear();
             }
         }
     }
