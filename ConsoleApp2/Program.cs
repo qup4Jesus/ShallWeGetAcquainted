@@ -22,9 +22,10 @@ namespace ConsoleApp2
                        "3 - Реверс твоего имени;\n" +
                        "4 - Сортировка массивов;\n" +
                        "5 - Кортежи;\n" +
-                       "6 - ВЫХОД";
+                       "6 - Эхо\n" +
+                       "7 - ВЫХОД";
 
-                select = CheckingTheSelection(info, 5);
+                select = CheckingTheSelection(info, 7);
 
                 switch (select)
                 {
@@ -44,6 +45,9 @@ namespace ConsoleApp2
                         I_amTuples();
                         break;
                     case 6:
+                        Reverse();
+                        break;
+                    case 7:
                         Environment.Exit(0);
                         break;
                 }
@@ -545,6 +549,32 @@ namespace ConsoleApp2
                 Console.Write("Нажмите любую клавишу для продолжения...");
                 Console.ReadKey();
                 Console.Clear();
+            }
+        }
+        private static void Reverse()
+        {
+            Console.WriteLine("Напишите что-то: ");
+            string str = Console.ReadLine();
+
+            Console.WriteLine("Укажите глубину эха: ");
+            int deep = int.Parse(Console.ReadLine());
+
+            Echo(str, deep);
+        }
+        private static void Echo(string pharse, int deep)
+        {
+            string modif = pharse;
+
+            if (modif.Length > 2)
+            {
+                modif = modif.Remove(0, 2);
+            }
+
+            Console.WriteLine("..." + modif);
+
+            if (deep > 1)
+            {
+                Echo(modif, deep - 1);
             }
         }
     }
