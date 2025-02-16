@@ -1,9 +1,5 @@
-﻿using Microsoft.Win32;
-using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Web;
+﻿using System;
+
 
 namespace ConsoleApp2
 {
@@ -553,15 +549,17 @@ namespace ConsoleApp2
         }
         private static void Reverse()
         {
+            int i = 0;
+
             Console.WriteLine("Напишите что-то: ");
             string str = Console.ReadLine();
 
             Console.WriteLine("Укажите глубину эха: ");
             int deep = int.Parse(Console.ReadLine());
 
-            Echo(str, deep);
+            Echo(str, deep, i);
         }
-        private static void Echo(string pharse, int deep)
+        private static void Echo(string pharse, int deep, int i)
         {
             string modif = pharse;
 
@@ -570,11 +568,41 @@ namespace ConsoleApp2
                 modif = modif.Remove(0, 2);
             }
 
+            if (i == 5)
+            {
+                i = 0;
+            }
+
+            switch (i)
+            {
+                case 0:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    break;
+                case 1:
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    break;
+                case 2:
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    break;
+                case 3:
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    break;
+                case 4:
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    break;
+            }
+
+            i++;
+
+            //Console.ForegroundColor = (ConsoleColor)deep;
+
             Console.WriteLine("..." + modif);
+
+            Console.ForegroundColor = ConsoleColor.Gray;
 
             if (deep > 1)
             {
-                Echo(modif, deep - 1);
+                Echo(modif, deep - 1, i);
             }
         }
     }
