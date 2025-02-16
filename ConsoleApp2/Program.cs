@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Serialization;
 
 
 namespace ConsoleApp2
@@ -19,9 +20,11 @@ namespace ConsoleApp2
                        "4 - Сортировка массивов;\n" +
                        "5 - Кортежи;\n" +
                        "6 - Эхо\n" +
-                       "7 - ВЫХОД";
+                       "7 - Факториал\n" +
+                       "8 - Возведение в степень\n" +
+                       "9 - ВЫХОД";
 
-                select = CheckingTheSelection(info, 7);
+                select = CheckingTheSelection(info, 9);
 
                 switch (select)
                 {
@@ -44,6 +47,12 @@ namespace ConsoleApp2
                         Reverse();
                         break;
                     case 7:
+                        CountingFactorial();
+                        break;
+                    case 8:
+                        CountingDegree();
+                        break;
+                    case 9:
                         Environment.Exit(0);
                         break;
                 }
@@ -603,6 +612,56 @@ namespace ConsoleApp2
             if (deep > 1)
             {
                 Echo(modif, deep - 1, i);
+            }
+        }
+        private static void CountingFactorial()
+        {
+            Console.Write("Введите число: ");
+            decimal x = decimal.Parse(Console.ReadLine());
+
+            x = Factorial(x);
+
+            Console.WriteLine(x);
+        }
+        private static decimal Factorial(decimal x)
+        {
+            if (x == 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return x * Factorial(x - 1);
+            }
+        }
+        private static void CountingDegree()
+        {
+            Console.Write("Введите число: ");
+            int x = int.Parse(Console.ReadLine());
+
+            Console.Write("Введите степень: ");
+            byte y = byte.Parse(Console.ReadLine());
+
+            x = PowerUp(x, y);
+
+            Console.WriteLine(x);
+        }
+        private static int PowerUp(int x, byte pow)
+        {
+            if (pow == 0)
+            {
+                return 0;
+            }
+            else
+            {
+                if (pow == 1)
+                {
+                    return x;
+                }
+                else
+                {
+                    return x * PowerUp(x, --pow);
+                }
             }
         }
     }
